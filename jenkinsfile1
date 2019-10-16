@@ -33,7 +33,7 @@ stage('Sonar Quality Check')
           sh 'mvn clean verify -f sonarqube-scanner-maven/maven-multimodule/pom.xml sonar:sonar -Dsonar.host.url=http://${SonarQube_url}'
          
          
-         //sh 'curl http://${SonarQube_url}/api/qualitygates/project_status?projectKey=com.mycompany.app:my-app'
+         sh 'curl http://${SonarQube_url}/api/qualitygates/project_status?projectKey=org.sonarqube:sonarscanner-maven-aggregate'
          
             }
         }
@@ -43,7 +43,7 @@ stage('nexus Upload')
 {
 steps {
 
-sh 'mvn clean deploy'
+sh 'mvn clean deploy -f sonarqube-scanner-maven/maven-multimodule/pom.xml'
 
 }
 
