@@ -51,6 +51,17 @@
     </pluginManagement>
   </build>
 
+          <distributionManagement>
+    <snapshotRepository>
+      <id>nexus-snapshots</id>
+      <url>http://ec2-13-232-177-18.ap-south-1.compute.amazonaws.com:8081/repository/maven-snapshots/</url>
+    </snapshotRepository>
+    <repository>
+      <id>nexus-releases</id>
+      <url>http://ec2-13-232-177-18.ap-south-1.compute.amazonaws.com:8081/repository/maven-releases/</url>
+    </repository>
+  </distributionManagement>
+         
   <profiles>
     <profile>
       <id>coverage</id>
