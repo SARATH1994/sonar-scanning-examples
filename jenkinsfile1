@@ -30,8 +30,10 @@ stage('Sonar Quality Check')
            sh 'ls -lrt'
           sh 'echo Soanr URL: ${SonarQube_url}'
             
-          sh 'mvn -f sonarqube-scanner-maven/maven-basic/pom.xml sonar:sonar -Dsonar.host.url=http://${SonarQube_url}'
-          //sh 'curl http://${SonarQube_url}/api/qualitygates/project_status?projectKey=com.mycompany.app:my-app'
+          sh 'mvn clean verify -f sonarqube-scanner-maven/maven-multimodule/pom.xml sonar:sonar -Dsonar.host.url=http://${SonarQube_url}'
+         
+         
+         //sh 'curl http://${SonarQube_url}/api/qualitygates/project_status?projectKey=com.mycompany.app:my-app'
          
             }
         }
@@ -39,7 +41,6 @@ stage('Sonar Quality Check')
 stage('nexus Upload')
 
 {
-
 steps {
 
 sh 'mvn clean deploy'
