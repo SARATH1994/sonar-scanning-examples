@@ -1,1 +1,56 @@
 
+pipeline {
+    
+agent  { 
+docker
+   {   
+        image 'maven:alpine' 
+        args '-v $HOME/.m2:/root/.m2:z -u root'
+        reuseNode true 
+     }  
+}
+          
+ environment { 
+ 
+    EMAIL_RECIPIENTS = 'sarathgogineni@outlook.com'
+    SonarQube_url='13.234.226.161:8081'
+    
+ 
+ }
+ 
+ stages {
+     
+stage('Sonar Quality Check')
+
+{
+            
+            
+            steps {
+           
+           
+          sh 'echo Soanr URL: ${SonarQube_url}'
+            
+          sh 'mvn sonar:sonar -Dsonar.host.url=http://${SonarQube_url}'
+          //sh 'curl http://${SonarQube_url}/api/qualitygates/project_status?projectKey=com.mycompany.app:my-app'
+         
+            }
+        }
+        
+stage('nexus Upload')
+
+{
+
+steps {
+
+sh 'mvn clean deploy'
+
+}
+
+}
+        
+        
+        
+    }
+}
+
+
